@@ -1,6 +1,7 @@
 package com.spacelampsix.monsters.extrahardmonsters;
 
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -28,9 +29,10 @@ public class Listeners implements Listener {
         if (event.getEntity() instanceof LivingEntity){
             if (event.getEntityType() == EntityType.CREEPER){
                 final int chance = rand.nextInt(101) + 1; //random number between 1 and 100
-                final double health = 40.0;
+                final float health = 40.0F;
                 Creeper creeper = (Creeper) event.getEntity();
-                // TODO creeper.setHealth(health);
+                creeper.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+                creeper.setHealth(health);
                 if (chance >= 0 && chance <= 30){
                     creeper.setExplosionRadius(10);
                 }
@@ -65,13 +67,20 @@ public class Listeners implements Listener {
             if (event.getEntityType() == EntityType.ZOMBIE){
                 int chance = rand.nextInt(101) + 1; //random number between 1 and 100
                 final int armorLevel = 4;
-                final double health = 40.0;
+                final float health = 40.0F;
                 Zombie zombie = (Zombie) event.getEntity();
-                // TODO zombie.setHealth(health);
+                zombie.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+                zombie.setHealth(health);
                 if (chance >= 50){
                     zombie.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 240, 2));
                 }
                 if (chance >= 10 && chance <= 25){
+                    if (chance == 15){
+                        ih.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
+                        ic.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
+                        il.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
+                        ib.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
+                    }
                     //Give Zombie Iron Armor if 20% chance
                     zombie.getEquipment().setHelmet(ih);
                     zombie.getEquipment().setChestplate(ic);
@@ -84,14 +93,8 @@ public class Listeners implements Listener {
                     zombie.getEquipment().setBootsDropChance(0.15F);
                     //Give Zombie the Sword
                     zombie.getEquipment().setItemInMainHand(new ItemStack(Material.IRON_SWORD));
-                    if (chance == 15){
-                        ih.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
-                        ic.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
-                        il.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
-                        ib.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
-                    }
                 }
-                if (chance <= 6){
+                if (chance <= 5){
                     if (chance == 1){
                         dh.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
                         dc.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
@@ -142,7 +145,8 @@ public class Listeners implements Listener {
                 final int armorLevel = 2;
                 final int bowLevel = 2;
                 Skeleton skeleton = (Skeleton) event.getEntity();
-                //TODO skeleton.setHealth(health); //Double Health
+                skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+                skeleton.setHealth(health); //Double Health
                 /**
                  * 0 -> 25 Enchanted Chain-mail (Protection 2)
                  * 26 -> 51 Punch 2
@@ -168,18 +172,18 @@ public class Listeners implements Listener {
                     skeleton.getEquipment().setLeggingsDropChance(percentDropChanceArmor);
                     skeleton.getEquipment().setBootsDropChance(percentDropChanceArmor);
                 }
-                if (chance >= 26 && chance <= 51){
+                if (chance >= 26 && chance < 51){
                     //Enchant the bow and give to the skeleton
                     pB.addEnchantment(Enchantment.ARROW_KNOCKBACK, bowLevel);
                     skeleton.getEquipment().setItemInMainHand(pB);
                     //set weapon drop chance
                     skeleton.getEquipment().setItemInMainHandDropChance(percentDropWeapon);
                 }
-                if (chance >= 52 && chance <= 62){
+                if (chance >= 52 && chance < 62){
                     //give skeleton the buff
                     skeleton.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,240,2));
                 }
-                if (chance >= 63 && chance <= 73){
+                if (chance >= 63 && chance < 73){
                     //enchant the armor and give it to the skeleton
                     cl.addEnchantment(Enchantment.THORNS, armorLevel);
                     cb.addEnchantment(Enchantment.THORNS, armorLevel);
@@ -191,7 +195,7 @@ public class Listeners implements Listener {
                     skeleton.getEquipment().setLeggingsDropChance(percentDropChanceArmor);
                     skeleton.getEquipment().setBootsDropChance(percentDropChanceArmor);
                 }
-                if (chance >= 74 && chance <= 79){
+                if (chance >= 74 && chance < 79){
                     //enchant the armor
                     ch.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
                     cc.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);

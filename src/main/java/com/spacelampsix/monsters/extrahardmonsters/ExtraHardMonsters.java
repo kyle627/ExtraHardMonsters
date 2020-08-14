@@ -7,7 +7,6 @@ public final class ExtraHardMonsters extends JavaPlugin {
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new Listeners(), this);
-
     }
 
     @Override
