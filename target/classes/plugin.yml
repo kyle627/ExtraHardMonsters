@@ -1,0 +1,7 @@
+name: ExtraHardMonsters
+version: 1.0-SNAPSHOT
+main: com.spacelampsix.monsters.extrahardmonsters.ExtraHardMonsters
+api-version: 1.13
+authors: [KyleEvangelisto]
+description: Extra Difficult Mobs that spawn with tougher armor, more health and potion effects
+website: kyleevangelisto.com
