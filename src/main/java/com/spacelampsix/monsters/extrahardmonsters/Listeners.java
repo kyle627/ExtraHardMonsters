@@ -28,15 +28,15 @@ public class Listeners implements Listener {
          */
         if (event.getEntity() instanceof LivingEntity){
             if (event.getEntityType() == EntityType.CREEPER){
-                final int chance = rand.nextInt(101) + 1; //random number between 1 and 100
+                final int chance = rand.nextInt(100) + 1; //random number between 1 and 100
                 final float health = 40.0F;
                 Creeper creeper = (Creeper) event.getEntity();
                 creeper.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
                 creeper.setHealth(health);
-                if (chance >= 0 && chance <= 30){
+                if (chance <= 30){
                     creeper.setExplosionRadius(10);
                 }
-                if (chance >= 70 && chance <= 100){
+                if (chance <= 100){
                     creeper.setPowered(true);
                 }
             }
@@ -65,7 +65,7 @@ public class Listeners implements Listener {
 
         if (event.getEntity() instanceof LivingEntity){
             if (event.getEntityType() == EntityType.ZOMBIE){
-                int chance = rand.nextInt(101) + 1; //random number between 1 and 100
+                int chance = rand.nextInt(100) + 1; //random number between 1 and 100
                 final int armorLevel = 4;
                 final float health = 40.0F;
                 Zombie zombie = (Zombie) event.getEntity();
@@ -219,6 +219,177 @@ public class Listeners implements Listener {
                     //set weapon drop chance
                     skeleton.getEquipment().setItemInMainHandDropChance(percentDropWeapon);
                 }
+            }
+        }
+    }
+    @EventHandler
+    public void endermanSpawn(CreatureSpawnEvent event){
+        /**
+         * Enderman
+         * All endermen have 1.5x health
+         * All endermen do more damage per hit
+         */
+        if (event.getEntity() instanceof LivingEntity){
+            if (event.getEntityType() == EntityType.ENDERMAN){
+                final float health = 60.0F;
+                final float damage = 7.0F;
+                Enderman enderman = (Enderman) event.getEntity();
+                enderman.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+                enderman.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(damage);
+                enderman.setHealth(health);
+            }
+        }
+    }
+    @EventHandler
+    public void drownedSpawn(CreatureSpawnEvent event){
+        /**
+         * Drowned
+         * double health
+         * 50% of drowns spawn with trident
+         * 25% of that 50% of the tridents will be enchanted with channeling
+         * 15% will have full gold armor
+         */
+
+        ItemStack gh = new ItemStack(Material.GOLDEN_HELMET);
+        ItemStack gc = new ItemStack(Material.GOLDEN_CHESTPLATE);
+        ItemStack gl = new ItemStack(Material.GOLDEN_LEGGINGS);
+        ItemStack gb = new ItemStack(Material.GOLDEN_LEGGINGS);
+
+        ItemStack trident = new ItemStack(Material.TRIDENT);
+
+        if (event.getEntity() instanceof LivingEntity){
+            if (event.getEntityType() == EntityType.DROWNED){
+                int chance = rand.nextInt(100) + 1;
+                final int health = 45;
+                final float dropChance = 0.15F; //armor and weapon
+                Drowned drowned = (Drowned) event.getEntity();
+                drowned.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+                if (chance >= 50){
+                    if (chance > 75){
+                        trident.addEnchantment(Enchantment.CHANNELING, 1);
+                        drowned.getEquipment().setItemInMainHand(trident);
+                    }
+                    drowned.getEquipment().setItemInMainHand(trident);
+                    drowned.getEquipment().setItemInMainHandDropChance(dropChance);
+                }
+                if (chance <= 15){
+                    drowned.getEquipment().setHelmet(gh);
+                    drowned.getEquipment().setChestplate(gc);
+                    drowned.getEquipment().setLeggings(gl);
+                    drowned.getEquipment().setBoots(gb);
+                    drowned.getEquipment().setHelmetDropChance(dropChance);
+                    drowned.getEquipment().setChestplateDropChance(dropChance);
+                    drowned.getEquipment().setLeggingsDropChance(dropChance);
+                    drowned.getEquipment().setBootsDropChance(dropChance);
+                }
+            }
+        }
+    }
+    @EventHandler
+    public void huskSpawn(CreatureSpawnEvent event){
+        /**
+         * Husk
+         * Double Health
+         * 50% Iron Axe
+         * 25% of that 50% Leather Armor as well
+         * 10% knock back 2 fire aspect 1 sword golden sword
+         */
+
+        ItemStack lh = new ItemStack(Material.LEATHER_HELMET);
+        ItemStack lc = new ItemStack(Material.LEATHER_CHESTPLATE);
+        ItemStack ll = new ItemStack(Material.LEATHER_LEGGINGS);
+        ItemStack lb = new ItemStack(Material.LEATHER_BOOTS);
+
+        ItemStack ironAxe = new ItemStack(Material.IRON_AXE);
+        ItemStack goldSword = new ItemStack(Material.IRON_SWORD);
+
+        if (event.getEntity() instanceof LivingEntity){
+            if (event.getEntityType() == EntityType.HUSK){
+                int chance = rand.nextInt(100) + 1;
+                final int health = 40;
+                final float armorDropChance = 0.15F;
+                final float weaponDropChanceAxe = 0.20F;
+                final float weaponDropChanceSword = 0.08F;
+                Husk husk = (Husk) event.getEntity();
+                husk.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+                husk.setHealth(health);
+                if (chance >= 50){
+                    if (chance > 75){
+                        husk.getEquipment().setHelmet(lh);
+                        husk.getEquipment().setChestplate(lc);
+                        husk.getEquipment().setLeggings(ll);
+                        husk.getEquipment().setBoots(lb);
+                        husk.getEquipment().setHelmetDropChance(armorDropChance);
+                        husk.getEquipment().setChestplateDropChance(armorDropChance);
+                        husk.getEquipment().setLeggingsDropChance(armorDropChance);
+                        husk.getEquipment().setBootsDropChance(armorDropChance);
+                    }
+                    husk.getEquipment().setItemInMainHand(ironAxe);
+                    husk.getEquipment().setItemInMainHandDropChance(weaponDropChanceAxe);
+                }
+                if (chance <= 10){
+                    goldSword.addEnchantment(Enchantment.FIRE_ASPECT , 1);
+                    goldSword.addEnchantment(Enchantment.KNOCKBACK, 2);
+                    husk.getEquipment().setItemInMainHand(goldSword);
+                    husk.getEquipment().setItemInMainHandDropChance(weaponDropChanceSword);
+                }
+            }
+
+        }
+    }
+    @EventHandler
+    public void straySpawn(CreatureSpawnEvent event){
+        /**
+         * Stray
+         * Double Health
+         * 25% Chance Power 2 Punch 2 bow
+         * 15% Speed 3 Chain chest-plate with protection 3, power 1 bow
+         */
+
+        ItemStack cc = new ItemStack(Material.CHAINMAIL_CHESTPLATE);
+        ItemStack bow = new ItemStack(Material.BOW);
+
+        if (event.getEntity() instanceof LivingEntity){
+            if (event.getEntityType() == EntityType.STRAY){
+                int chance = rand.nextInt(100 ) + 1;
+                final float health = 40.0F;
+                final float bowDropChance = 0.9F;
+                final float armorDropChance = 0.15F;
+                Stray stray = (Stray) event.getEntity();
+                stray.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+                stray.setHealth(health);
+                if (chance >= 75){
+                    bow.addEnchantment(Enchantment.ARROW_KNOCKBACK, 2);
+                    bow.addEnchantment(Enchantment.ARROW_DAMAGE, 2);
+                    stray.getEquipment().setItemInMainHand(bow);
+                    stray.getEquipment().setItemInMainHandDropChance(bowDropChance);
+                }
+                if (chance <= 15){
+                    stray.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 240, 3));
+                    cc.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+                    bow.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+                    stray.getEquipment().setChestplate(cc);
+                    stray.getEquipment().setItemInMainHand(bow);
+                    stray.getEquipment().setItemInMainHandDropChance(bowDropChance);
+                    stray.getEquipment().setChestplateDropChance(armorDropChance);
+                }
+            }
+        }
+
+    }
+    @EventHandler
+    public void spiderAndCaveSpiderSpawn(CreatureSpawnEvent event){
+        /**
+         * Spider's Health is doubled
+         * There's not too much you can do with them
+         */
+        if (event.getEntity() instanceof LivingEntity){
+            if (event.getEntityType() == EntityType.SPIDER || event.getEntityType() == EntityType.CAVE_SPIDER){
+                final int health = 40;
+                Spider spider = (Spider) event.getEntity();
+                CaveSpider caveSpider = (CaveSpider) event.getEntity();
+                spider.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+                caveSpider.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
             }
         }
     }
