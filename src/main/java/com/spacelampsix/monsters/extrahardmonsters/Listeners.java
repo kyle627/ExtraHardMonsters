@@ -36,7 +36,7 @@ public class Listeners implements Listener {
                 if (chance <= 30){
                     creeper.setExplosionRadius(10);
                 }
-                if (chance <= 100){
+                if (chance >= 70){
                     creeper.setPowered(true);
                 }
             }
@@ -264,6 +264,7 @@ public class Listeners implements Listener {
                 final float dropChance = 0.15F; //armor and weapon
                 Drowned drowned = (Drowned) event.getEntity();
                 drowned.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+                drowned.setHealth(health);
                 if (chance >= 50){
                     if (chance > 75){
                         trident.addEnchantment(Enchantment.CHANNELING, 1);
@@ -390,6 +391,8 @@ public class Listeners implements Listener {
                 CaveSpider caveSpider = (CaveSpider) event.getEntity();
                 spider.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
                 caveSpider.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+                spider.setHealth(health);
+                caveSpider.setHealth(health);
             }
         }
     }

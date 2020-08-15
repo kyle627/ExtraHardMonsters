@@ -7,8 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57747c3f-1fa4-4d1e-9691-a597161ee3c5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/kylee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/ExtraHardMonsters_jar/ExtraHardMonsters.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/ExtraHardMonsters_jar/ExtraHardMonsters.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/spacelampsix/monsters/extrahardmonsters/Listeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spacelampsix/monsters/extrahardmonsters/Listeners.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
