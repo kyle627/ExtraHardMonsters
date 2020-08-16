@@ -7,9 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57747c3f-1fa4-4d1e-9691-a597161ee3c5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spacelampsix/monsters/extrahardmonsters/NetherMonsterListeners.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/kylee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/kylee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/ExtraHardMonsters_jar/ExtraHardMonsters.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/ExtraHardMonsters_jar/ExtraHardMonsters.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spacelampsix/monsters/extrahardmonsters/Listeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spacelampsix/monsters/extrahardmonsters/Listeners.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spacelampsix/monsters/extrahardmonsters/ExtraHardMonsters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spacelampsix/monsters/extrahardmonsters/ExtraHardMonsters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spacelampsix/monsters/extrahardmonsters/Listeners.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spacelampsix/monsters/extrahardmonsters/OverworldMonsterListeners.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +51,11 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.spacelampsix.monsters.extrahardmonsters" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="ExtraHardMonsters build" type="MavenRunConfiguration" factoryName="Maven">

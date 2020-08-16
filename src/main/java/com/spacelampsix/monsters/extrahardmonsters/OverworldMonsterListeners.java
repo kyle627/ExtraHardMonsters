@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.Random;
 
-public class Listeners implements Listener {
+public class OverworldMonsterListeners implements Listener {
 
     //random number is generated that will be used to determine if we want the specific added challenge to
     //be added to the mob when it is spawned
@@ -394,6 +394,108 @@ public class Listeners implements Listener {
                 spider.setHealth(health);
                 caveSpider.setHealth(health);
             }
+        }
+    }
+    @EventHandler
+    public void phantomSpawn(CreatureSpawnEvent event){
+        /**
+         * Not much we can do with phantoms
+         *  3x health
+         *  speed 2
+         */
+        if (event.getEntity() instanceof LivingEntity){
+            if (event.getEntityType() == EntityType.PHANTOM){
+                final float health = 60.0F;
+                Phantom phantom = (Phantom) event.getEntity();
+                phantom.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 240, 3));
+                phantom.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+                phantom.setHealth(health);
+            }
+        }
+    }
+    @EventHandler
+    public void meanVillagerTypesSpawn(CreatureSpawnEvent event){
+        /**
+         * This method will include
+         * witches, pillagers, ravangers, vex, zombie villager
+         * Mobs will have more health (Not all Double)
+         * Increased Attack damage
+         * Speed 2
+         */
+
+        ItemStack lh = new ItemStack(Material.LEATHER_HELMET);
+        ItemStack lc = new ItemStack(Material.LEATHER_CHESTPLATE);
+        ItemStack ll = new ItemStack(Material.LEATHER_LEGGINGS);
+        ItemStack lb = new ItemStack(Material.LEATHER_BOOTS);
+        ItemStack is = new ItemStack(Material.IRON_SWORD);
+
+        if (event.getEntity() instanceof LivingEntity){
+            int chance = rand.nextInt(100) + 1;
+            final float doubleHealth = 40.0F;
+
+            if (event.getEntityType() == EntityType.ZOMBIE_VILLAGER){
+                /**
+                 * Zombie Villager has double health
+                 * 35% chance of leather gear and 20% of that 35% chance will be enchanted protection 4
+                 * will have a sword too
+                 */
+                final float armorDropChance = 0.20F;
+                final float swordDropChance = 0.25F;
+                final int armorLevel = 4;
+                ZombieVillager zombieVillager = (ZombieVillager) event.getEntity();
+                zombieVillager.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(doubleHealth);
+                zombieVillager.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 240 , 2));
+                zombieVillager.setHealth(doubleHealth);
+                if (chance >= 65){
+                    if (chance >= 80){
+                        lh.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
+                        lc.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
+                        ll.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
+                        lb.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, armorLevel);
+                    }
+                    zombieVillager.getEquipment().setHelmet(lh);
+                    zombieVillager.getEquipment().setChestplate(lc);
+                    zombieVillager.getEquipment().setLeggings(ll);
+                    zombieVillager.getEquipment().setBoots(lb);
+                    zombieVillager.getEquipment().setItemInMainHand(is);
+                    zombieVillager.getEquipment().setHelmetDropChance(armorDropChance);
+                    zombieVillager.getEquipment().setChestplateDropChance(armorDropChance);
+                    zombieVillager.getEquipment().setLeggingsDropChance(armorDropChance);
+                    zombieVillager.getEquipment().setBootsDropChance(armorDropChance);
+                    //sword
+                    zombieVillager.getEquipment().setItemInMainHand(is);
+                    zombieVillager.getEquipment().setItemInMainHandDropChance(swordDropChance);
+                }
+            }
+            if (event.getEntityType() == EntityType.WITCH){
+                /**
+                 * Witch has double health
+                 * and speed 1.
+                 */
+                Witch witch = (Witch) event.getEntity();
+                witch.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 240, 1));
+                witch.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(doubleHealth);
+            }
+            if (event.getEntityType() == EntityType.RAVAGER){
+                //these guys are already beefy enough
+                Ravager ravager = (Ravager) event.getEntity();
+                ravager.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 240, 1));
+            }
+            if (event.getEntityType() == EntityType.VEX){
+                Vex vex = (Vex) event.getEntity();
+                vex.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(doubleHealth);
+                vex.setHealth(doubleHealth);
+                is.addEnchantment(Enchantment.DAMAGE_ALL, 2);
+                vex.getEquipment().setItemInMainHand(is);
+                vex.getEquipment().setItemInMainHandDropChance(0.10F);
+            }
+            if (event.getEntityType() == EntityType.PILLAGER){
+                Pillager pillager = (Pillager) event.getEntity();
+                if (chance <= 40){
+                    pillager.getEquipment().setItemInMainHand(is);
+                }
+            }
+
         }
     }
 
