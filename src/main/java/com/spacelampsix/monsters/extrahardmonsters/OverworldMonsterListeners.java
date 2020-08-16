@@ -14,7 +14,6 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Random;
 
 public class OverworldMonsterListeners implements Listener {
-
     //random number is generated that will be used to determine if we want the specific added challenge to
     //be added to the mob when it is spawned
     Random rand = new Random();
@@ -498,5 +497,21 @@ public class OverworldMonsterListeners implements Listener {
 
         }
     }
+    @EventHandler
+    public void guardianSpawn(CreatureSpawnEvent event){
+        /**
+         * Guardians have increased health
+         * as well as speed 2
+         */
+        if (event.getEntity() instanceof LivingEntity){
+            if (event.getEntityType() == EntityType.GUARDIAN){
+                final float doubleHealth = 60.0F;
+                Guardian guardian = (Guardian) event.getEntity();
+                guardian.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(doubleHealth);
+                guardian.setHealth(doubleHealth);
+                guardian.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 240 , 2));
+            }
+        }
 
+    }
 }
