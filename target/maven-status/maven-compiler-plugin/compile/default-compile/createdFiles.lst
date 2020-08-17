@@ -1,2 +1,3 @@
 com\spacelampsix\monsters\extrahardmonsters\ExtraHardMonsters.class
-com\spacelampsix\monsters\extrahardmonsters\Listeners.class
+com\spacelampsix\monsters\extrahardmonsters\NetherMonsterListeners.class
+com\spacelampsix\monsters\extrahardmonsters\OverworldMonsterListeners.class

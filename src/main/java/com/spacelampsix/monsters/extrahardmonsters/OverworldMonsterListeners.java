@@ -27,15 +27,15 @@ public class OverworldMonsterListeners implements Listener {
          */
         if (event.getEntity() instanceof LivingEntity){
             if (event.getEntityType() == EntityType.CREEPER){
-                final int chance = rand.nextInt(100) + 1; //random number between 1 and 100
+                final int chance = rand.nextInt(10) + 1; //random number between 1 and 100
                 final float health = 40.0F;
                 Creeper creeper = (Creeper) event.getEntity();
                 creeper.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
                 creeper.setHealth(health);
-                if (chance <= 30){
+                if (chance <= 3){
                     creeper.setExplosionRadius(10);
                 }
-                if (chance >= 70){
+                if (chance >= 7){
                     creeper.setPowered(true);
                 }
             }
@@ -428,6 +428,8 @@ public class OverworldMonsterListeners implements Listener {
         ItemStack lb = new ItemStack(Material.LEATHER_BOOTS);
         ItemStack is = new ItemStack(Material.IRON_SWORD);
 
+        ItemStack cb = new ItemStack(Material.CROSSBOW);
+
         if (event.getEntity() instanceof LivingEntity){
             int chance = rand.nextInt(100) + 1;
             final float doubleHealth = 40.0F;
@@ -489,9 +491,17 @@ public class OverworldMonsterListeners implements Listener {
                 vex.getEquipment().setItemInMainHandDropChance(0.10F);
             }
             if (event.getEntityType() == EntityType.PILLAGER){
+                final float isDropChance = 0.20F;
+                final float cbDropChance = 0.15F;
                 Pillager pillager = (Pillager) event.getEntity();
                 if (chance <= 40){
                     pillager.getEquipment().setItemInMainHand(is);
+                    pillager.getEquipment().setItemInMainHandDropChance(isDropChance);
+                }
+                if (chance >= 75){
+                    cb.addEnchantment(Enchantment.QUICK_CHARGE, 2);
+                    pillager.getEquipment().setItemInMainHand(cb);
+                    pillager.getEquipment().setItemInMainHandDropChance(cbDropChance);
                 }
             }
 
